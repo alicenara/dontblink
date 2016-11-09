@@ -1,11 +1,12 @@
 Temp/
 Library/
 Build/
+Obj/
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
 /[Bb]uild/
-/[Bb]uilds/
+/Assets/AssetStoreTools*
 ExportedObj/
 *.csproj
 *.unityproj
@@ -17,5 +18,4 @@ ExportedObj/
 *.pidb
 *.booproj
 *.svd
-*.meta
 sysinfo.txt

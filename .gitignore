@@ -1,15 +1,12 @@
 Temp/
 Library/
 Build/
-ProjectSettings/
+Obj/
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
 /[Bb]uild/
-/[Bb]uilds/
-/[Pp]rojectSettings/
-Source/Assets/AssetStoreTools/*
-Source/Assets/Sprites/*
+/Assets/AssetStoreTools*
 ExportedObj/
 *.csproj
 *.unityproj
@@ -21,7 +18,4 @@ ExportedObj/
 *.pidb
 *.booproj
 *.svd
-*.meta
 sysinfo.txt
-*.asset
-*.unity

@@ -394,7 +394,17 @@ Prefab:
     - target: {fileID: 23000013729259482, guid: c46006f9d3d0b4e90b13d5df5bdb2e1a,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010542562482, guid: c46006f9d3d0b4e90b13d5df5bdb2e1a,
+        type: 2}
+      propertyPath: m_BounceIntensity
+      value: 2.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010542562482, guid: c46006f9d3d0b4e90b13d5df5bdb2e1a,
+        type: 2}
+      propertyPath: m_Intensity
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c46006f9d3d0b4e90b13d5df5bdb2e1a, type: 2}

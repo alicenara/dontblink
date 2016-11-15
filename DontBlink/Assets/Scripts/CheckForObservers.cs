@@ -7,6 +7,7 @@ using System.Collections.Generic;
  */
 public class CheckForObservers : MonoBehaviour {
 	private bool isObserved = false;
+	public bool inDarkness = true;
 	private int lastCalculation = -1;
 
 	// Use this for initialization
@@ -37,10 +38,28 @@ public class CheckForObservers : MonoBehaviour {
 	}
 
 	/**
+	 * Determines if the given point is lit by a light source.
+	 * 
+	 * Should only be done in dark levels.
+	 */
+	private bool PointIsLit (Vector3 point) {
+		Light[] lights = FindObjectsOfType (typeof(Light)) as Light[];
+		foreach (Light light in lights) {
+			if ((light.transform.position - point).magnitude <= light.range) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Determines if the given point is observed by one of the (enabled) cameras in the
 	 * scene.
 	 */
 	private bool PointObserved (Vector3 point) {
+		if (inDarkness && !PointIsLit (point)) {
+			return false;
+		}
 		foreach (Camera camera in Camera.allCameras) {
 			Vector3 cameraPosition = camera.transform.position;
 			if (PointInCameraFOV(camera, point) && !WallBetween(cameraPosition, point)) {
@@ -108,6 +127,8 @@ public class CheckForObservers : MonoBehaviour {
 	void Update () {
 		if (IsObserved ()) {
 			Debug.Log ("Is Observed");
+		} else {
+			Debug.Log ("Not Observed");
 		}
 	}
 }

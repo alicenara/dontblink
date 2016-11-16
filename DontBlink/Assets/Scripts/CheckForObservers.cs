@@ -126,9 +126,7 @@ public class CheckForObservers : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (IsObserved ()) {
-			Debug.Log ("Is Observed");
 		} else {
-			Debug.Log ("Not Observed");
 		}
 	}
 }

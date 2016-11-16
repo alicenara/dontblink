@@ -25,7 +25,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public float patrolSpeed = 0.5f;
 
 		//Variables for chasing
-		public float chaseSpeed = 1f;
+		public float chaseSpeed = 0.5f;
 		public GameObject target;
 
 		// Use this for initialization

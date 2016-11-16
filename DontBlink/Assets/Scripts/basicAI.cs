@@ -6,8 +6,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 {
 	public class basicAI : MonoBehaviour {
 
-		public NavMeshAgent agent;
-		public ThirdPersonCharacter character;
+		public NavMeshAgent agent;	//handles the level positions for movement
+		public ThirdPersonCharacter character;	//handles the ai functions
 		public CheckForObservers checkForObservers;
 
 		public enum State {
@@ -28,7 +28,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public float chaseSpeed = 0.5f;
 		public GameObject target;
 
-		// Use this for initialization
+		// Initialization
 		void Start () {
 			agent = GetComponent<NavMeshAgent> ();
 			character = GetComponent<ThirdPersonCharacter> ();
@@ -45,6 +45,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		}
 
+		// runs while ai is alive and keeps updating ai behaviour by checking current ai state
 		IEnumerator FSM()
 		{
 			while (alive) 
@@ -69,12 +70,14 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 		}
 
+		// runs if player location is unknown and ai not observed
 		void Patrol()
 		{
 			agent.speed = patrolSpeed;
 
 		}
 
+		// runs if play location is known and ai not observed
 		void Chase()
 		{
 			if (!checkForObservers.IsObserved()){
@@ -84,6 +87,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 		}
 
+		// runs if ai is observed
 		void Freeze()
 		{
 			agent.speed = 0;
@@ -92,6 +96,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		}
 
+		// runs if player is within ai awareness radius
+		// has no effect if ai is observed
 		void OnTriggerStay (Collider coll)
 		{
 			if (coll.tag == "Player")

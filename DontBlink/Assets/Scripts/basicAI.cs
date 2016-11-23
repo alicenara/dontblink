@@ -34,6 +34,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			character = GetComponent<ThirdPersonCharacter> ();
 			checkForObservers = GetComponent<CheckForObservers> ();
 
+		
 			agent.updatePosition = true;
 			agent.updateRotation = false;
 

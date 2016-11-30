@@ -1,9 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PuzzleInteract : MonoBehaviour {
+	enum Piece {
+		STRAIGHT,
+		CURVE,
+		DOUBLE,
+	};
 	public GameObject puzzleScreen;
-	public Transform puzzlePiece;
+	public Transform puzzleStraight;
+	public Transform puzzleCurve;
+	public Transform puzzleDouble;
 	Transform[,] puzzlePieces = new Transform[7, 7];
 	bool puzzleMode = false;
 	float interpolation = 0.0f;
@@ -19,12 +27,39 @@ public class PuzzleInteract : MonoBehaviour {
 			+ puzzleScreen.transform.forward * 0.1f
 			+ puzzleScreen.transform.right * 0.35f
 			- puzzleScreen.transform.up * 0.35f;
+		Array values = Enum.GetValues(typeof(Piece));
+		System.Random random = new System.Random ();
 		for (int i = 0; i < 7; i++) {
 			for (int j = 0; j < 7; j++) {
-				puzzlePieces[i, j] = (Transform) Instantiate (puzzlePiece, new Vector3 (i, 6 - j, 0) * 0.1f + origin, Quaternion.identity);
+				instantiatePiece ((Piece) values.GetValue (random.Next (values.Length)), i, j);
+				int rotations = random.Next (4);
+				for (int r = 0; r < rotations; r++) {
+					rotatePuzzlePiece (i, j);
+				}
 			}
 		}
 		puzzlePieces [markerX, markerY].transform.position -= puzzlePieces [markerX, markerY].transform.forward * 0.05f;
+	}
+
+	void instantiatePiece (Piece piece, int i, int j) {
+		Transform puzzlePiece = puzzleStraight;
+		switch (piece) {
+		case Piece.STRAIGHT:
+			puzzlePiece = puzzleStraight;
+			break;
+		case Piece.CURVE:
+			puzzlePiece = puzzleCurve;
+			break;
+		case Piece.DOUBLE:
+			puzzlePiece = puzzleDouble;
+			break;
+		};
+		Vector3 origin = puzzleScreen.transform.position
+			+ puzzleScreen.transform.forward * 0.1f
+			+ puzzleScreen.transform.right * 0.35f
+			- puzzleScreen.transform.up * 0.35f;
+		Vector3 position = new Vector3 (i, 6 - j, 0) * 0.1f + origin;
+		puzzlePieces[i, j] = (Transform) Instantiate (puzzlePiece, position, Quaternion.identity);
 	}
 
 	bool lookingAtPuzzle(Collider other) {
@@ -79,8 +114,8 @@ public class PuzzleInteract : MonoBehaviour {
 		}
 	}
 
-	void rotatePuzzlePiece() {
-		Transform piece = puzzlePieces [markerX, markerY];
+	void rotatePuzzlePiece(int i, int j) {
+		Transform piece = puzzlePieces [i, j];
 		piece.RotateAround (piece.transform.position, piece.transform.forward, 90);
 	}
 
@@ -114,7 +149,7 @@ public class PuzzleInteract : MonoBehaviour {
 				} else if (Input.GetKeyDown (KeyCode.S)) {
 					moveMarkerDown ();
 				} else if (Input.GetKeyDown (KeyCode.Space)) {
-					rotatePuzzlePiece ();
+					rotatePuzzlePiece (markerX, markerY);
 				}
 				interactor.transform.position = interpolationTo;
 			}

@@ -79,6 +79,11 @@ public class PuzzleInteract : MonoBehaviour {
 		}
 	}
 
+	void rotatePuzzlePiece() {
+		Transform piece = puzzlePieces [markerX, markerY];
+		piece.RotateAround (piece.transform.position, piece.transform.forward, 90);
+	}
+
 	// Update is called once per frame
 	void Update () {
 		if (!puzzleMode) {
@@ -108,6 +113,8 @@ public class PuzzleInteract : MonoBehaviour {
 					moveMarkerUp ();
 				} else if (Input.GetKeyDown (KeyCode.S)) {
 					moveMarkerDown ();
+				} else if (Input.GetKeyDown (KeyCode.Space)) {
+					rotatePuzzlePiece ();
 				}
 				interactor.transform.position = interpolationTo;
 			}

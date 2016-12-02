@@ -9,8 +9,11 @@ public class PuzzleInteract : MonoBehaviour {
 	public Transform puzzleDouble;
 	public Transform puzzleDoor;
 	public Transform puzzleFinishWire;
+	public Transform solvedLight;
 	public Material activeWireMaterial;
 	public Material inactiveWireMaterial;
+	public Material solvedLightMaterial;
+	public Material unsolvedLightMaterial;
 	int w = 7;
 	int h = 7;
 	PuzzlePiece[,] puzzlePieces;
@@ -190,6 +193,7 @@ public class PuzzleInteract : MonoBehaviour {
 						if (j == h - 1 && i == w - 1) {
 							solved = true;
 							puzzleFinishWire.GetComponent<Renderer>().sharedMaterial = activeWireMaterial;
+							solvedLight.GetComponent<Renderer>().sharedMaterial = solvedLightMaterial;
 						}
 						finished = true;
 					}
@@ -208,6 +212,7 @@ public class PuzzleInteract : MonoBehaviour {
 		}
 		if (!solved) {
 			puzzleFinishWire.GetComponent<Renderer>().sharedMaterial = inactiveWireMaterial;
+			solvedLight.GetComponent<Renderer>().sharedMaterial = unsolvedLightMaterial;
 		}
 	}
 

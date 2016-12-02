@@ -23,7 +23,7 @@ GameObject:
   - 23: {fileID: 23000012998539922}
   - 95: {fileID: 95000011376915456}
   m_Layer: 0
-  m_Name: wire_bend
+  m_Name: wire_bend1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ GameObject:
   - 23: {fileID: 23000011234431920}
   - 95: {fileID: 95000013652219242}
   m_Layer: 0
-  m_Name: wire_bend (1)
+  m_Name: wire_bend2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

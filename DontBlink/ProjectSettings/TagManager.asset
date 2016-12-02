@@ -7,6 +7,7 @@ TagManager:
   - Security Camera
   - Pickupable
   - Interact
+  - Enemy
   layers:
   - Default
   - TransparentFX

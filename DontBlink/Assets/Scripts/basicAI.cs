@@ -9,6 +9,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public NavMeshAgent agent;	//handles the level positions for movement
 		public ThirdPersonCharacter character;	//handles the ai functions
 		public CheckForObservers checkForObservers;
+		private bool initialized;
 
 		public enum State {
 			PATROL,
@@ -33,6 +34,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			agent = GetComponent<NavMeshAgent> ();
 			character = GetComponent<ThirdPersonCharacter> ();
 			checkForObservers = GetComponent<CheckForObservers> ();
+			initialized = false;
 
 		
 			agent.updatePosition = true;
@@ -107,6 +109,24 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				target = coll.gameObject;
 			}
 			
+		}
+
+		// Checks if player is touching the ai
+		void OnTriggerEnter (Collider coll)
+		{
+			if (coll.tag == "Player")
+			{
+				if (initialized) {
+					if (coll is CapsuleCollider) {
+						//Enter code for game over here
+						Debug.Log ("You are Dead");
+
+					}
+				} else {
+					initialized = true;
+				}
+			}
+
 		}
 
 

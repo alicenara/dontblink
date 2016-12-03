@@ -14,6 +14,7 @@ public class PuzzleInteract : MonoBehaviour {
 	public Material inactiveWireMaterial;
 	public Material solvedLightMaterial;
 	public Material unsolvedLightMaterial;
+	public TextAsset puzzleConfigurationFile;
 	int w = 7;
 	int h = 7;
 	PuzzlePiece[,] puzzlePieces;
@@ -34,9 +35,29 @@ public class PuzzleInteract : MonoBehaviour {
 		activeWires = new ArrayList ();
 		Array values = Enum.GetValues(typeof(Piece));
 		System.Random random = new System.Random ();
-		for (int i = 0; i < w; i++) {
-			for (int j = 0; j < h; j++) {
-				instantiatePiece ((Piece)values.GetValue (random.Next (values.Length)), i, j);
+		string puzzleConfiguration = puzzleConfigurationFile.text;
+		int row = 0;
+		int column = 0;
+		for (int i = 0; i < puzzleConfiguration.Length; i++) {
+			if (puzzleConfiguration [i] == '\n') {
+				row++;
+				column = 0;
+			} else {
+				switch (puzzleConfiguration [i]) {
+				case '1':
+					instantiatePiece (Piece.STRAIGHT, column, row);
+					break;
+				case '2':
+					instantiatePiece (Piece.CURVE, column, row);
+					break;
+				case '3':
+					instantiatePiece (Piece.DOUBLE, column, row);
+					break;
+				default:
+					instantiatePiece ((Piece)values.GetValue (random.Next (values.Length)), column, row);
+					break;
+				}
+				column++;
 			}
 		}
 		for (int i = 0; i < w; i++) {

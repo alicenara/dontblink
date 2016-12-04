@@ -3,27 +3,34 @@ using System.Collections;
 using System;
 
 public class PuzzleInteract : MonoBehaviour {
-	public GameObject puzzleScreen;
-	public Transform puzzleStraight;
-	public Transform puzzleCurve;
-	public Transform puzzleDouble;
-	public Transform puzzleDoor;
-	public Transform puzzleFinishWire;
-	public Transform solvedLight;
 	public Material activeWireMaterial;
 	public Material inactiveWireMaterial;
 	public Material solvedLightMaterial;
 	public Material unsolvedLightMaterial;
 	public TextAsset puzzleConfigurationFile;
+	public AudioClip doorOpenClip;
+	public AudioClip doorCloseClip;
+	public AudioClip markerMoveClip;
+	public AudioClip markerRotateClip;
+	public AudioClip activatedSound;
+	public Transform puzzleScreen;
+	public Transform puzzleStraight;
+	public Transform puzzleCurve;
+	public Transform puzzleDouble;
+	AudioSource doorAudioSource;
+	AudioSource activatedAudioSource;
+	Transform puzzleDoor;
+	Transform puzzleFinishWire;
+	Transform solvedLight;
 	int w = 7;
 	int h = 7;
 	PuzzlePiece[,] puzzlePieces;
 	bool puzzleMode = false;
 	bool solved = false;
 	float interpolation = 0.0f;
+	float doorAngle = 0;
 	int markerX = 3;
 	int markerY = 3;
-	int doorAngle = 0;
 	Vector3 interpolationFrom;
 	Vector3 interpolationTo;
 	Collider interactor = null;
@@ -31,6 +38,13 @@ public class PuzzleInteract : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		puzzleDoor = puzzleScreen.Find ("puzzle_frame/door");
+		puzzleFinishWire = puzzleScreen.Find ("puzzle_frame/output_wire");
+		solvedLight = puzzleScreen.Find ("puzzle_frame/light");
+		AudioSource[] audioSources = puzzleScreen.GetComponents <AudioSource> ();
+		doorAudioSource = audioSources[0];
+		activatedAudioSource = audioSources[1];
+		Debug.Log (doorAudioSource);
 		puzzlePieces = new PuzzlePiece[w, h];
 		activeWires = new ArrayList ();
 		Array values = Enum.GetValues(typeof(Piece));
@@ -74,20 +88,20 @@ public class PuzzleInteract : MonoBehaviour {
 		Vector3 origin = puzzleScreen.transform.position
 			+ puzzleScreen.transform.up * 0.075f
 			+ puzzleScreen.transform.forward * 0.30f
-			- puzzleScreen.transform.right * 0.30f;
-		Vector3 position = new Vector3 (i, 6 - j, 0) * 0.1f + origin;
+			+ puzzleScreen.transform.right * 0.30f;
+		Vector3 position = origin - (puzzleScreen.transform.forward * i + puzzleScreen.transform.right * j) * 0.1f;
 		Transform transform;
 		switch (piece) {
 		case Piece.STRAIGHT:
-			transform = (Transform) Instantiate (puzzleStraight, position, Quaternion.identity);
+			transform = (Transform) Instantiate (puzzleStraight, position, this.transform.rotation);
 			puzzlePieces [i, j] = new StraightPiece (transform, activeWireMaterial, inactiveWireMaterial);
 			break;
 		case Piece.CURVE:
-			transform = (Transform) Instantiate (puzzleCurve, position, Quaternion.identity);
+			transform = (Transform) Instantiate (puzzleCurve, position, this.transform.rotation);
 			puzzlePieces [i, j] = new CurvedPiece (transform, activeWireMaterial, inactiveWireMaterial);
 			break;
 		case Piece.DOUBLE:
-			transform = (Transform) Instantiate (puzzleDouble, position, Quaternion.identity);
+			transform = (Transform) Instantiate (puzzleDouble, position, this.transform.rotation);
 			puzzlePieces [i, j] = new DoublePiece (transform, activeWireMaterial, inactiveWireMaterial);
 			break;
 		};
@@ -118,6 +132,7 @@ public class PuzzleInteract : MonoBehaviour {
 			puzzlePieces [markerX, markerY].setHighlighted (false);
 			markerX -= 1;
 			puzzlePieces [markerX, markerY].setHighlighted (true);
+			doorAudioSource.PlayOneShot (markerMoveClip, 0.5f);
 		}
 	}
 
@@ -126,6 +141,7 @@ public class PuzzleInteract : MonoBehaviour {
 			puzzlePieces [markerX, markerY].setHighlighted (false);
 			markerX += 1;
 			puzzlePieces [markerX, markerY].setHighlighted (true);
+			doorAudioSource.PlayOneShot (markerMoveClip, 0.5f);
 		}
 	}
 
@@ -134,6 +150,7 @@ public class PuzzleInteract : MonoBehaviour {
 			puzzlePieces [markerX, markerY].setHighlighted (false);
 			markerY -= 1;
 			puzzlePieces [markerX, markerY].setHighlighted (true);
+			doorAudioSource.PlayOneShot (markerMoveClip, 0.5f);
 		}
 	}
 
@@ -142,6 +159,7 @@ public class PuzzleInteract : MonoBehaviour {
 			puzzlePieces [markerX, markerY].setHighlighted (false);
 			markerY += 1;
 			puzzlePieces [markerX, markerY].setHighlighted (true);
+			doorAudioSource.PlayOneShot (markerMoveClip, 0.5f);
 		}
 	}
 
@@ -215,6 +233,7 @@ public class PuzzleInteract : MonoBehaviour {
 							solved = true;
 							puzzleFinishWire.GetComponent<Renderer>().sharedMaterial = activeWireMaterial;
 							solvedLight.GetComponent<Renderer>().sharedMaterial = solvedLightMaterial;
+							activatedAudioSource.Play();
 						}
 						finished = true;
 					}
@@ -234,6 +253,7 @@ public class PuzzleInteract : MonoBehaviour {
 		if (!solved) {
 			puzzleFinishWire.GetComponent<Renderer>().sharedMaterial = inactiveWireMaterial;
 			solvedLight.GetComponent<Renderer>().sharedMaterial = unsolvedLightMaterial;
+			activatedAudioSource.Stop ();
 		}
 	}
 
@@ -258,9 +278,13 @@ public class PuzzleInteract : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (!puzzleMode) {
-			if (doorAngle > 0) {
-				doorAngle -= 20;
-				puzzleDoor.RotateAround (puzzleDoor.transform.position - puzzleDoor.transform.up * 0.36f, puzzleDoor.transform.right, -20);
+			if (doorAngle > 0.0f) {
+				float deltaAngle = 500.0f * Time.deltaTime;
+				if (doorAngle - deltaAngle < 0) {
+					deltaAngle = doorAngle;
+				}
+				doorAngle -= deltaAngle;
+				puzzleDoor.RotateAround (puzzleDoor.transform.position - puzzleDoor.transform.up * 0.36f, puzzleDoor.transform.right, -deltaAngle);
 			}
 			if (interactor != null && Input.GetKeyDown (KeyCode.E)) {
 				puzzleMode = true;
@@ -269,13 +293,18 @@ public class PuzzleInteract : MonoBehaviour {
 				interpolationTo = transform.position;
 				interpolationTo.y = interpolationFrom.y;
 				puzzlePieces [markerX, markerY].setHighlighted (true);
+				doorAudioSource.PlayOneShot (doorOpenClip);
 			} else {
 				interactor = null;
 			}
-		} else if (puzzleMode) {
-			if (doorAngle < 160) {
-				doorAngle += 20;
-				puzzleDoor.RotateAround (puzzleDoor.transform.position - puzzleDoor.transform.up * 0.36f, puzzleDoor.transform.right, 20);
+		} else {
+			if (doorAngle < 160.0f) {
+				float deltaAngle = 500.0f * Time.deltaTime;
+				if (doorAngle + deltaAngle > 160.0f) {
+					deltaAngle = 160.0f - doorAngle;
+				}
+				doorAngle += deltaAngle;
+				puzzleDoor.RotateAround (puzzleDoor.transform.position - puzzleDoor.transform.up * 0.36f, puzzleDoor.transform.right, deltaAngle);
 			}
 			if (interpolation < 1.0f) {
 				interactor.transform.position = Vector3.Slerp(interpolationFrom,
@@ -286,6 +315,7 @@ public class PuzzleInteract : MonoBehaviour {
 				if (Input.GetKeyDown (KeyCode.E)) {
 					puzzleMode = false;
 					puzzlePieces [markerX, markerY].setHighlighted (false);
+					doorAudioSource.PlayOneShot (doorCloseClip);
 				} else if (Input.GetKeyDown (KeyCode.A)) {
 					moveMarkerLeft ();
 				} else if (Input.GetKeyDown (KeyCode.D)) {
@@ -296,6 +326,7 @@ public class PuzzleInteract : MonoBehaviour {
 					moveMarkerDown ();
 				} else if (Input.GetKeyDown (KeyCode.Space)) {
 					rotatePuzzlePiece (markerX, markerY);
+					doorAudioSource.PlayOneShot (markerRotateClip, 0.5f);
 				}
 				interactor.transform.position = interpolationTo;
 			}

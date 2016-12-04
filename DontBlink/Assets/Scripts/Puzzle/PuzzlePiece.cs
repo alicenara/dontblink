@@ -10,7 +10,7 @@ public abstract class PuzzlePiece {
 
 	bool highlighted = false;
 	float interpolation = 0.0f;
-	int angle = 0;
+	float angle = 0;
 	Vector3 unhighlightedPos;
 	Vector3 highlightedPos;
 
@@ -30,25 +30,29 @@ public abstract class PuzzlePiece {
 		rotation += 1;
 		if (rotation > 3) {
 			rotation -= 4;
-			angle -= 360;
+			angle -= 360.0f;
 		}
 	}
 
 	public void Update() {
 		if (highlighted) {
 			if (interpolation < 1.0f) {
-				interpolation += 0.2f;
+				interpolation += Mathf.Min(10.0f * Time.deltaTime, 1.0f);
 				transform.position = Vector3.Slerp(unhighlightedPos, highlightedPos, interpolation);
 			}
 		} else if (!highlighted) {
 			if (interpolation > 0.0f) {
-				interpolation -= 0.2f;
+				interpolation -= Mathf.Max(10.0f * Time.deltaTime, 0.0f);
 				transform.position = Vector3.Slerp(unhighlightedPos, highlightedPos, interpolation);
 			}
 		}
-		if ((float) angle / 90 < rotation) {
-			angle += 30;
-			transform.RotateAround (transform.position, transform.forward, 30);
+		if (angle < rotation * 90.0f) {
+			float deltaAngle = 1000.0f * Time.deltaTime;
+			if (angle + deltaAngle > rotation * 90.0f) {
+				deltaAngle = rotation * 90.0f - angle;
+			}
+			angle += deltaAngle;
+			transform.RotateAround (transform.position, transform.forward, deltaAngle);
 		}
 	}
 

@@ -8,6 +8,7 @@ public class SecurityCameraController : MonoBehaviour {
 	// put the second material here.
 	public Material material2;
 	public Camera securitycamera;
+	public PuzzleInteract puzzle = null;
 
 	float turnSpeed = 4.0f;		// Speed of camera turning when mouse moves in along an axis
 	private Vector3 mouseOrigin;	// Position of cursor when mouse dragging starts
@@ -26,9 +27,11 @@ public class SecurityCameraController : MonoBehaviour {
 	{
 		if (Input.GetKey("o"))
 		{
-			GetComponent<Renderer>().material = material2;
-			SecondndMaterial = true;
-			FirstMaterial = false;
+			if (puzzle == null || puzzle.isSolved ()) {
+				GetComponent<Renderer> ().material = material2;
+				SecondndMaterial = true;
+				FirstMaterial = false;
+			}
 		}
 
 		// Get the left mouse button

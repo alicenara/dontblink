@@ -50,10 +50,10 @@ public class SecurityCameraController : MonoBehaviour {
 			Debug.Log("hello");
 		
 			if(Input.GetKey("right")){
-				securitycamera.transform.Rotate (Vector3.up * turnSpeed);
+				securitycamera.transform.parent.parent.parent.Rotate (Vector3.up * turnSpeed);
 			}
 			else if(Input.GetKey("left")){
-				securitycamera.transform.Rotate (Vector3.down * turnSpeed);
+				securitycamera.transform.parent.parent.parent.Rotate (Vector3.down * turnSpeed);
 			}
 //			if(Input.GetKey("l")){
 //				securitycamera.transform.Rotate (Vector3.right * turnSpeed);

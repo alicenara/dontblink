@@ -9,6 +9,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public NavMeshAgent agent;	//handles the level positions for movement
 		public ThirdPersonCharacter character;	//handles the ai functions
 		public CheckForObservers checkForObservers;
+		public AudioClip walkSound;
+		AudioSource audioSource;
 		private bool initialized;
 
 		public enum State {
@@ -34,6 +36,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			agent = GetComponent<NavMeshAgent> ();
 			character = GetComponent<ThirdPersonCharacter> ();
 			checkForObservers = GetComponent<CheckForObservers> ();
+			audioSource = GetComponent <AudioSource> ();
 			initialized = false;
 
 		
@@ -77,7 +80,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		void Patrol()
 		{
 			agent.speed = patrolSpeed;
-
+			if (!audioSource.isPlaying) {
+				audioSource.Play();
+			}
+			if (audioSource.volume < 1.0f) {
+				audioSource.volume += Time.deltaTime;
+			}
 		}
 
 		// runs if play location is known and ai not observed
@@ -87,6 +95,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				agent.speed = chaseSpeed;
 				agent.SetDestination (target.transform.position);
 				character.Move(agent.desiredVelocity, false, false);
+				if (!audioSource.isPlaying) {
+					audioSource.Play();
+				}
+				if (audioSource.volume < 1.0f) {
+					audioSource.volume += Time.deltaTime;
+				}
 			}
 		}
 
@@ -96,7 +110,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			agent.speed = 0;
 			agent.SetDestination (character.transform.position);
 			character.Move(agent.desiredVelocity, false, false);
-
+			if (audioSource.volume > 0.0f) {
+				audioSource.volume -= 2.0f * Time.deltaTime;
+			} else {
+				audioSource.Stop ();
+			}
 		}
 
 		// runs if player is within ai awareness radius

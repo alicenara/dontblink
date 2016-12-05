@@ -6,6 +6,7 @@ public class OpenDoor : MonoBehaviour {
     public float maxRotation = -90f;
     float opening = 0;
     public float degreesPerUpdate = -1f;
+	public PuzzleInteract puzzle = null;
     bool canOpenDoor = false;
     bool openingDoor = false;
     Rigidbody door;
@@ -17,21 +18,29 @@ public class OpenDoor : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-        canOpenDoor = true;
+		if (other.tag == "Player") {
+			canOpenDoor = true;
+		}
     }
 
     void OnTriggerStay(Collider other) {
-        canOpenDoor = true;
+		if (other.tag == "Player") {
+			canOpenDoor = true;
+		}
     }
 
     void OnTriggerExit(Collider other) {
-        canOpenDoor = false;
+		if (other.tag == "Player") {
+			canOpenDoor = false;
+		}
     }
 
     // Update is called once per frame
     void Update () {
-	    if (canOpenDoor && Input.GetKey(KeyCode.E)) {
-            openingDoor = true;
+	    if (canOpenDoor && Input.GetKeyDown(KeyCode.E)) {
+			if (puzzle == null || puzzle.isSolved ()) {
+				openingDoor = true;
+			}
         }
         if (openingDoor && opening > maxRotation) {
             opening += degreesPerUpdate;

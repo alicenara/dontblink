@@ -19,6 +19,9 @@ public class SecurityCameraController : MonoBehaviour {
 	bool SecondMaterial = false;
 	void Start () 
 	{
+		if (securitycamera != null) {
+			securitycamera.enabled = false;
+		}
 		GetComponent<Renderer>().material = material1;
 	}
 		
@@ -33,6 +36,9 @@ public class SecurityCameraController : MonoBehaviour {
 				FirstMaterial = false;
 				if (cameraLight != null) {
 					cameraLight.intensity = 3;
+				}
+				if (securitycamera != null) {
+					securitycamera.enabled = true;
 				}
 			}
 		}

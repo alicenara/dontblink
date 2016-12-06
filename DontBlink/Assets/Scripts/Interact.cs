@@ -33,8 +33,10 @@ public class Interact : MonoBehaviour {
 					interactIcon.enabled = true;
 					// if press the interact button
 					if (Input.GetButtonDown (interactButton)) {
-						if (hit.collider.CompareTag ("Door")) {
-							hit.collider.GetComponent<OpenDoor> ().openDoor();
+						if (hit.collider.gameObject.CompareTag ("Door") == true) {
+							Debug.Log ("open door");
+							hit.collider.GetComponent<Door> ().ChangeDoorState ();
+
 						}
 					}
 				}

@@ -36,8 +36,8 @@ public class OpenDoor : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-	    if (canOpenDoor && Input.GetKeyDown(KeyCode.E)) {
+    public void openDoor () {
+	    if (canOpenDoor) {
 			if (puzzle == null || puzzle.isSolved ()) {
 				openingDoor = true;
 			}
@@ -49,5 +49,6 @@ public class OpenDoor : MonoBehaviour {
             opening -= degreesPerUpdate;
         }
         door.transform.localEulerAngles = new Vector3(door.transform.localEulerAngles.x, doorY + opening, door.transform.localEulerAngles.z);
+		Debug.Log ("open door");
 	}
 }

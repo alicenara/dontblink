@@ -9,7 +9,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public NavMeshAgent agent;	//handles the level positions for movement
 		public ThirdPersonCharacter character;	//handles the ai functions
 		public CheckForObservers checkForObservers;
-		public AudioClip walkSound;
 		AudioSource audioSource;
 		private bool initialized;
 
@@ -37,7 +36,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			character = GetComponent<ThirdPersonCharacter> ();
 			checkForObservers = GetComponent<CheckForObservers> ();
 			audioSource = GetComponent <AudioSource> ();
-			audioSource.pitch = UnityEngine.Random.Range (0.8f, 1.2f);
+			audioSource.pitch = UnityEngine.Random.Range (0.5f, 1.2f);
 			initialized = false;
 
 		

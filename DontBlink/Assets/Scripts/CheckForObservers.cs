@@ -33,7 +33,7 @@ public class CheckForObservers : MonoBehaviour {
 	 * A wall has layerMask 10000000 (binary)
 	 */
 	private bool WallBetween(Vector3 a, Vector3 b) {
-		int layerMask = 1 << 8;
+		int layerMask = 1 << 10;
 		return Physics.Raycast (a, (b - a).normalized, (b - a).magnitude, layerMask);
 	}
 

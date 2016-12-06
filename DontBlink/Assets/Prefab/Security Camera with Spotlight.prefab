@@ -39,7 +39,6 @@ GameObject:
   - 20: {fileID: 20000014231672938}
   - 124: {fileID: 124000012039469342}
   - 92: {fileID: 92000014058518008}
-  - 81: {fileID: 81000013276545558}
   m_Layer: 0
   m_Name: SecurityCamera
   m_TagString: Untagged
@@ -258,8 +257,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012380183408}
   m_LocalRotation: {x: -0.000000115202326, y: 0.7071068, z: -0.000000115202326, w: 0.7071068}
-  m_LocalPosition: {x: -12.462067, y: -3.7617962, z: 21.431864}
-  m_LocalScale: {x: 5.6503234, y: 2.5383248, z: 2.538326}
+  m_LocalPosition: {x: -8.18, y: 2.08, z: 6.854}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_Children:
   - {fileID: 4000012793299464}
@@ -345,7 +344,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: bbbcbe532108d48b7b970dc2839cead2, type: 2}
-  m_TargetDisplay: 0
+  m_TargetDisplay: 1
   m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
@@ -568,13 +567,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012320201584}
   m_Mesh: {fileID: 4300008, guid: 3bf5eaaf019184f93888511cab7bc810, type: 3}
---- !u!81 &81000013276545558
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010188349986}
-  m_Enabled: 1
 --- !u!92 &92000014058518008
 Behaviour:
   m_ObjectHideFlags: 1

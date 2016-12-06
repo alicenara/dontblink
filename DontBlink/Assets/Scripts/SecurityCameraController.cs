@@ -9,16 +9,16 @@ public class SecurityCameraController : MonoBehaviour {
 	public Material material2;
 	public Camera securitycamera;
 	public PuzzleInteract puzzle = null;
+	public Light cameraLight = null;
 
 	float turnSpeed = 4.0f;		// Speed of camera turning when mouse moves in along an axis
 	private Vector3 mouseOrigin;	// Position of cursor when mouse dragging starts
 	private bool isRotating;	// Is the camera being rotated?
 
 	bool FirstMaterial = true;
-	bool SecondndMaterial = false;
+	bool SecondMaterial = false;
 	void Start () 
 	{
-		
 		GetComponent<Renderer>().material = material1;
 	}
 		
@@ -29,13 +29,16 @@ public class SecurityCameraController : MonoBehaviour {
 		{
 			if (puzzle == null || puzzle.isSolved ()) {
 				GetComponent<Renderer> ().material = material2;
-				SecondndMaterial = true;
+				SecondMaterial = true;
 				FirstMaterial = false;
+				if (cameraLight != null) {
+					cameraLight.intensity = 3;
+				}
 			}
 		}
 
 		// Get the left mouse button
-		if(SecondndMaterial)
+		if(SecondMaterial)
 		{
 			// Get mouse origin
 

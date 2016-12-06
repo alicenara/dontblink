@@ -11,6 +11,7 @@ public class InmateAnimation : MonoBehaviour {
 	void Start () {
 		animator = GetComponent<Animator> ();
 		animator.SetFloat ("Blend", blend);
+		animator.speed = Random.Range (0.9f, 1.1f);
 	}
 	
 	// Update is called once per frame

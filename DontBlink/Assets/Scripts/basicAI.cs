@@ -37,6 +37,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			character = GetComponent<ThirdPersonCharacter> ();
 			checkForObservers = GetComponent<CheckForObservers> ();
 			audioSource = GetComponent <AudioSource> ();
+			audioSource.pitch = UnityEngine.Random.Range (0.8f, 1.2f);
 			initialized = false;
 
 		

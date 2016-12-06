@@ -9,6 +9,7 @@ TagManager:
   - Interact
   - Enemy
   - Door
+  - Safe Player
   layers:
   - Default
   - TransparentFX

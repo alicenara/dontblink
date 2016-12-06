@@ -380,10 +380,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013388945476}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.52, y: 1.37, z: 6.05}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -6.75, y: 1.29, z: 7.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 89.354004, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_Children:
   - {fileID: 4000010401899982}
   - {fileID: 4000013860214888}
@@ -396,8 +396,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012715132168}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.33, z: -0.89}
-  m_LocalScale: {x: 0.059404563, y: 1, z: 0.06377263}
+  m_LocalPosition: {x: -0, y: -0.33, z: -1.06}
+  m_LocalScale: {x: 0.059404563, y: 1, z: 0.047762007}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000013445013088}
@@ -1018,7 +1018,7 @@ MonoBehaviour:
   solvedLightMaterial: {fileID: 2100000, guid: bbad0ab1049f044b4a4a6cc324377f78, type: 2}
   unsolvedLightMaterial: {fileID: 2100000, guid: c9bae68b30e9044a3a09dab77a943b3c,
     type: 2}
-  puzzleConfigurationFile: {fileID: 4900000, guid: c5009ca0070f94ffab26c2d1e8647a64,
+  puzzleConfigurationFile: {fileID: 4900000, guid: 508894c4a4bca4255811d6a3d0bc8f47,
     type: 3}
   doorOpenClip: {fileID: 8300000, guid: 9a780f63dff6148a79e7caf3654da205, type: 3}
   doorCloseClip: {fileID: 8300000, guid: 394ab4dd598a844d6875b2d0886971b8, type: 3}

@@ -7,13 +7,15 @@ public class Door : MonoBehaviour {
 	public float DoorOpenAngle = 90f;
 	public float DoorCloseAngle = 180f;
 	public float Smooth = 2f;
+	AudioSource doorOpenSound;
 
 	public void ChangeDoorState(){
 		open = !open;
+		doorOpenSound.Play ();
 	}
 	// Use this for initialization
 	void Start () {
-	
+		doorOpenSound = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame

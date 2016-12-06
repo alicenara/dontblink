@@ -113,7 +113,7 @@ public class PuzzleInteract : MonoBehaviour {
 		
 	void OnTriggerEnter(Collider other) {
 		if (!puzzleMode) {
-			if (other.tag == "Player" && lookingAtPuzzle(other)) {
+			if ((other.tag == "Player" || other.tag == "Safe Player") && lookingAtPuzzle(other)) {
 				interactor = other;
 			}
 		}
@@ -121,7 +121,7 @@ public class PuzzleInteract : MonoBehaviour {
 
 	void OnTriggerStay(Collider other) {
 		if (!puzzleMode) {
-			if (other.tag == "Player" && lookingAtPuzzle(other)) {
+			if ((other.tag == "Player" || other.tag == "Safe Player") && lookingAtPuzzle(other)) {
 				interactor = other;
 			}
 		}

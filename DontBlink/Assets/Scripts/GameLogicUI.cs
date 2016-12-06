@@ -23,8 +23,10 @@ public class GameLogicUI : MonoBehaviour {
 			}
 		}
 		if (showEnemyHint) {
-			LookEnemyHint.SetActive (true);
-			StartCoroutine (hideUI (LookEnemyHint, 2.0f));
+			if (LookEnemyHint.activeSelf == false) {
+				LookEnemyHint.SetActive (true);
+				StartCoroutine (hideUI (LookEnemyHint, 3.0f));
+			}
 		}
 	}
 

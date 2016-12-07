@@ -134,17 +134,17 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		}
 
 		// Checks if player is touching the ai
-		void OnTriggerEnter (Collider coll) {
-			if (coll.tag == "Player") {
-				if (initialized) {
-					if (coll is CapsuleCollider) {
+		void OnCollisionEnter (Collision coll) {
+
+			if (coll.collider.tag == "Player") {
+				
+
+					if (coll.collider is CapsuleCollider) {
 						//Enter code for game over here
 						Debug.Log ("You are Dead");
 						playerAlive = false;
 					}
-				} else {
-					initialized = true;
-				}
+				 
 			}
 
 		}

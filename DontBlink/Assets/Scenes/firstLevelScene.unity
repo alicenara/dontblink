@@ -4539,12 +4539,17 @@ Prefab:
     - target: {fileID: 136000013112194710, guid: 48f0d6f5a85084818b4da1e713c01a51,
         type: 2}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114000012387128354, guid: 48f0d6f5a85084818b4da1e713c01a51,
         type: 2}
       propertyPath: chaseSpeed
-      value: 0.1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54000013058440356, guid: 48f0d6f5a85084818b4da1e713c01a51,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48f0d6f5a85084818b4da1e713c01a51, type: 2}

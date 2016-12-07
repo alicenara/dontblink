@@ -230,6 +230,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012387128354, guid: 48f0d6f5a85084818b4da1e713c01a51,
+        type: 2}
+      propertyPath: patrolSpeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48f0d6f5a85084818b4da1e713c01a51, type: 2}
   m_IsPrefabParent: 0
@@ -779,7 +784,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 247916670}
   - 65: {fileID: 247916671}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1346,6 +1351,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012387128354, guid: 48f0d6f5a85084818b4da1e713c01a51,
+        type: 2}
+      propertyPath: patrolSpeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48f0d6f5a85084818b4da1e713c01a51, type: 2}
   m_IsPrefabParent: 0
@@ -1718,7 +1728,7 @@ GameObject:
   - 33: {fileID: 481050169}
   - 23: {fileID: 481050168}
   - 65: {fileID: 481050167}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Door (1)
   m_TagString: Door
   m_Icon: {fileID: 0}

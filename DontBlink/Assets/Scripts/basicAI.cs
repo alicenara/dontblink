@@ -21,7 +21,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		}
 
 		public State state;
-		public bool alive;
+		private bool alive;
+		public bool playerAlive = true;
 
 		// Varaibles for patrolling
 		public GameObject[] waypoints;
@@ -48,6 +49,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			state = State.PATROL;
 
 			alive = true;
+			playerAlive = true;
 
 			StartCoroutine ("FSM");
 
@@ -138,8 +140,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 					if (coll is CapsuleCollider) {
 						//Enter code for game over here
 						Debug.Log ("You are Dead");
-						alive = false;
-
+						playerAlive = false;
 					}
 				} else {
 					initialized = true;

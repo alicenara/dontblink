@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class ChangeLevel : MonoBehaviour {
 
-	void OnMouseDown() {
-		SceneManager.LoadScene ("darkScene");
+	public void toSecondLevel() {
+		SceneManager.LoadScene ("testingScene");
 	}
 }

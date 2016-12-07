@@ -11,6 +11,7 @@ TagManager:
   - Door
   - Safe Player
   - TV
+  - DoorSuccess
   layers:
   - Default
   - TransparentFX

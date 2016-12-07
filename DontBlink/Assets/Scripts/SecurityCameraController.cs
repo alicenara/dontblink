@@ -16,7 +16,7 @@ public class SecurityCameraController : MonoBehaviour {
 	private bool isRotating;	// Is the camera being rotated?
 
 	bool FirstMaterial = true;
-	bool SecondMaterial = false;
+	public bool SecondMaterial = false;
 	void Start () 
 	{
 		if (securitycamera != null) {
@@ -56,7 +56,6 @@ public class SecurityCameraController : MonoBehaviour {
 		// Rotate camera along X and Y axis
 		if (isRotating) {
 			//Vector3 pos = Input.mousePosition - mouseOrigin ;
-			Debug.Log("hello");
 		
 			if(Input.GetKey("right")){
 				securitycamera.transform.parent.parent.parent.Rotate (Vector3.up * turnSpeed);

@@ -54,6 +54,13 @@ public class Interact : MonoBehaviour {
 							hit.collider.GetComponent<Door> ().ChangeDoorState ();
 						}
 					}
+					if (Input.GetButtonDown (interactButton)) {
+						if (hit.collider.gameObject.CompareTag ("DoorSuccess") == true) {
+							if (GameObject.FindGameObjectWithTag ("TV").GetComponent<SecurityCameraController> ().SecondMaterial == true) {
+								hit.collider.GetComponent<ChangeLevel> ().toSecondLevel();
+							}
+						}
+					}
 				}
 			}
 		} else {

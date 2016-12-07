@@ -12,6 +12,7 @@ TagManager:
   - Safe Player
   - TV
   - DoorSuccess
+  - Puzzle
   layers:
   - Default
   - TransparentFX

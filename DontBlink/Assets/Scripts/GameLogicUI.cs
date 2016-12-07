@@ -6,6 +6,7 @@ public class GameLogicUI : MonoBehaviour {
 
 	public GameObject GameStartCanvas;
 	public GameObject LookEnemyHint;
+	public GameObject GameOverCanvas;
 
 	private GameObject[] enemies;
 	// Use this for initialization
@@ -17,12 +18,19 @@ public class GameLogicUI : MonoBehaviour {
 	void Update () {
 		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 		bool showEnemyHint = false;
+		bool alive = true;
 		foreach (GameObject enemy in enemies) {
 			if (!enemy.GetComponent<CheckForObservers> ().IsObserved ()) {
 				showEnemyHint = true;
 			}
+			if (!enemy.GetComponent<UnityStandardAssets.Characters.ThirdPerson.basicAI> ().alive) {
+				alive = false;
+			}
 		}
-		if (showEnemyHint) {
+
+		if (alive = false) {
+			GameOverCanvas.SetActive (true);
+		}else if (showEnemyHint) {
 			if (LookEnemyHint.activeSelf == false) {
 				LookEnemyHint.SetActive (true);
 				StartCoroutine (hideUI (LookEnemyHint, 3.0f));

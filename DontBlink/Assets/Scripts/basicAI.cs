@@ -13,6 +13,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		bool initialized;
 		float patrolTick = 0.0f;
 
+
 		public enum State {
 			PATROL,
 			CHASE,
@@ -20,7 +21,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		}
 
 		public State state;
-		private bool alive;
+		public bool alive;
 
 		// Varaibles for patrolling
 		public GameObject[] waypoints;
@@ -137,6 +138,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 					if (coll is CapsuleCollider) {
 						//Enter code for game over here
 						Debug.Log ("You are Dead");
+						alive = false;
 
 					}
 				} else {

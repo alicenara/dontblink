@@ -9,14 +9,19 @@ public class Interact : MonoBehaviour {
 	public LayerMask interactLayer; //Filter
 	public Image interactIcon; // Picture to show if you can interact or not
 	public bool isInteracting;
+	public GameObject OpenDoorHintCanvas;
+	public GameObject OpenCameraHintCanvas;
 
 
 
 	// Use this for initialization
 	void Start () {
 		// set interact icon invisible
-		if(interactIcon != null)
-		interactIcon.enabled = false;
+		if (interactIcon != null && OpenDoorHintCanvas != null && OpenCameraHintCanvas != null) {
+			interactIcon.enabled = false;
+			OpenDoorHintCanvas.SetActive(false);
+			OpenCameraHintCanvas.SetActive(false);
+		}
 
 	}
 	
@@ -31,18 +36,34 @@ public class Interact : MonoBehaviour {
 			if (!isInteracting) {
 				if (interactIcon != null) {
 					interactIcon.enabled = true;
-					// if press the interact button
+					// show door hint
+					if (hit.collider.gameObject.CompareTag ("Door") == true) {
+						if (OpenDoorHintCanvas != null) {
+							OpenDoorHintCanvas.SetActive(true);
+						}
+					}
+					// show open TV hint
+					if (hit.collider.gameObject.CompareTag ("TV") == true) {
+						if (OpenCameraHintCanvas != null) {
+							OpenCameraHintCanvas.SetActive(true);
+						}
+					}
+					// if press the interact button "E"
 					if (Input.GetButtonDown (interactButton)) {
 						if (hit.collider.gameObject.CompareTag ("Door") == true) {
-							Debug.Log ("open door");
 							hit.collider.GetComponent<Door> ().ChangeDoorState ();
-
 						}
 					}
 				}
 			}
 		} else {
 			interactIcon.enabled = false;
+			if (OpenCameraHintCanvas != null) {
+				OpenDoorHintCanvas.SetActive (false);
+			}
+			if (OpenCameraHintCanvas != null) {
+				OpenCameraHintCanvas.SetActive (false);
+			}
 		}
 	}
 }

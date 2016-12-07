@@ -29,10 +29,9 @@ public class Interact : MonoBehaviour {
 	void Update () {
 		// shoot a ray
 		Ray ray = new Ray (transform.position, transform.forward);
-		RaycastHit hit;
-
-		if (Physics.Raycast (ray, out hit, interactDistance, interactLayer)) {
+		RaycastHit[] hits = Physics.RaycastAll (ray, interactDistance, interactLayer);
 			// check if we are not interacting
+		foreach (RaycastHit hit in hits) {
 			if (!isInteracting) {
 				if (interactIcon != null) {
 					interactIcon.enabled = true;
@@ -42,6 +41,12 @@ public class Interact : MonoBehaviour {
 							OpenDoorHintCanvas.SetActive(true);
 						}
 					}
+					/*
+					if (hit.collider.gameObject.CompareTag ("Puzzle") == true) {
+						if (OpenDoorHintCanvas != null) {
+							OpenDoorHintCanvas.SetActive(true);
+						}
+					}*/
 					// show open TV hint
 					if (hit.collider.gameObject.CompareTag ("TV") == true) {
 						if (OpenCameraHintCanvas != null) {
@@ -63,7 +68,8 @@ public class Interact : MonoBehaviour {
 					}
 				}
 			}
-		} else {
+		}
+		if (hits.Length == 0) {
 			interactIcon.enabled = false;
 			if (OpenCameraHintCanvas != null) {
 				OpenDoorHintCanvas.SetActive (false);

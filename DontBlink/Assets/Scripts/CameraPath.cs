@@ -6,20 +6,23 @@ public class CameraPath : MonoBehaviour {
 
     public List<CameraWaypoint> waypointList;
     public Camera mainCamera;
+    SplashScreenController splashController;
+
     public float speed;
     float startTime;
     float distance;
     bool active = false;
     int waypointIndex = 0;
+
     KeyCode lastKeycode;
-    Transform origin;
-    Transform destiny;
+    Transform origin, destiny;
 
     void Awake() {
         if (waypointList.Count > 1) {
             mainCamera.transform.position = waypointList[0].transform.position;
             mainCamera.transform.rotation = waypointList[0].transform.rotation;
         }
+        splashController = FindObjectOfType<SplashScreenController>();
     }
 
     void OnDrawGizmos () {
@@ -42,6 +45,7 @@ public class CameraPath : MonoBehaviour {
             active = true;
         } else {
             //active = false;
+            splashController.Fade(1);
             waypointIndex -= dir;
         }
     }
@@ -50,25 +54,63 @@ public class CameraPath : MonoBehaviour {
     void Update() {
         if (active) {
             if (Input.GetKeyDown(lastKeycode)) {
-                mainCamera.transform.position = destiny.position;
-                mainCamera.transform.rotation = destiny.rotation;
                 active = false;
+                if (waypointList[waypointIndex].ending) {
+                    mainCamera.transform.position = destiny.position;
+                    mainCamera.transform.rotation = destiny.rotation;
+                }else {
+                    if (lastKeycode == KeyCode.RightArrow) {
+                        for (int i = waypointIndex; i < waypointList.Count; i++) {
+                            if (waypointList[i].ending) {
+                                mainCamera.transform.position = waypointList[i].transform.position;
+                                mainCamera.transform.rotation = waypointList[i].transform.rotation;
+                                waypointIndex = i;
+                                break;
+                            }
+                        }
+                    } else {
+                        for (int i = waypointIndex; i >= 0; i--) {
+                            if (waypointList[i].ending) {
+                                mainCamera.transform.position = waypointList[i].transform.position;
+                                mainCamera.transform.rotation = waypointList[i].transform.rotation;
+                                waypointIndex = i;
+                                break;
+                            }
+                        }
+                    }
+                }
+                    
             } else {
                 float distCovered = (Time.time - startTime) * speed;
                 float fracJourney = distCovered / distance;
                 mainCamera.transform.position = Vector3.Lerp(origin.position, destiny.position, fracJourney);
                 mainCamera.transform.rotation = Quaternion.Lerp(origin.rotation, destiny.rotation, fracJourney);
                 if (Vector3.Distance(mainCamera.transform.position, destiny.position) < 0.01f) {
-                    active = false;
+                    if(waypointList[waypointIndex].ending)
+                        active = false;
+                    else {
+                        if (lastKeycode == KeyCode.RightArrow)
+                            NextWaypoint(1);
+                        else
+                            NextWaypoint(-1);
+                    }
                 }
             }
         } else {
             if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-                lastKeycode = KeyCode.LeftArrow;
-                NextWaypoint(-1);
+                if (splashController.Alpha == 1) {
+                    splashController.Fade(0);
+                }else {
+                    lastKeycode = KeyCode.LeftArrow;
+                    NextWaypoint(-1);
+                }                
             } else if (Input.GetKeyDown(KeyCode.RightArrow)) {
-                lastKeycode = KeyCode.RightArrow;
-                NextWaypoint(1);
+                if (splashController.Alpha == 1) {
+                    splashController.Fade(0);
+                } else {
+                    lastKeycode = KeyCode.RightArrow;
+                    NextWaypoint(1);
+                }
             }
         }
     }

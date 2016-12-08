@@ -29,7 +29,7 @@ public class LightFlicker : MonoBehaviour {
             shinyLight.intensity = 0f;
         }
         if (((cheatVar > firstStop + stayOff && cheatVar < secondStop) || cheatVar < firstStop || cheatVar > 150) && shinyLight.intensity < 5) {
-            shinyLight.intensity += 0.5f * 2 * Time.deltaTime;
+            shinyLight.intensity += 1.2f * 2 * Time.deltaTime;
         }
         cheatVar += incCheatVar;
     }

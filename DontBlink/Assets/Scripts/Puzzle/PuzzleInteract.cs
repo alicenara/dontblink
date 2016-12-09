@@ -277,6 +277,10 @@ public class PuzzleInteract : MonoBehaviour {
 		return solved;
 	}
 
+	public bool isPuzzleMode() {
+		return puzzleMode;
+	}
+
 	// Update is called once per frame
 	void Update () {
 		if (!puzzleMode) {

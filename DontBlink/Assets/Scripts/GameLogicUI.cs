@@ -8,7 +8,7 @@ public class GameLogicUI : MonoBehaviour {
 	public GameObject GameStartCanvas;
 	public GameObject LookEnemyHint;
 	public GameObject GameOverCanvas;
-
+	public GameObject PuzzleHintCanvas;
 
 	private GameObject[] enemies;
 	private bool alive;
@@ -35,6 +35,15 @@ public class GameLogicUI : MonoBehaviour {
 			}
 		}
 
+		GameObject[] puzzles = GameObject.FindGameObjectsWithTag ("Puzzle");
+		bool showPuzzleHint = false;
+		foreach (GameObject puzzle in puzzles) {
+			if (puzzle.GetComponent<PuzzleInteract> ().isPuzzleMode ()) {
+				showPuzzleHint = true;
+			}
+		}
+
+
 		if (alive == false) {
 			if (GameObject.FindGameObjectWithTag ("TV") == true) {
 				if (GameObject.FindGameObjectWithTag ("TV").GetComponent<SecurityCameraController> ().SecondMaterial == false) {
@@ -50,6 +59,13 @@ public class GameLogicUI : MonoBehaviour {
 				LookEnemyHint.SetActive (true);
 				StartCoroutine (hideUI (LookEnemyHint, 3.0f));
 			}*/
+		}
+		if (showPuzzleHint) {
+			if (PuzzleHintCanvas.activeSelf == false) {
+				PuzzleHintCanvas.SetActive (true);
+			}
+		} else {
+			PuzzleHintCanvas.SetActive (false);
 		}
 	}
 

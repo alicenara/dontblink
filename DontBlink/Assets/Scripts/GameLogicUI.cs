@@ -24,6 +24,7 @@ public class GameLogicUI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+		Cursor.visible = false;
 		bool showEnemyHint = false;
 		foreach (GameObject enemy in enemies) {
 			if (!enemy.GetComponent<CheckForObservers> ().IsObserved ()) {
@@ -44,10 +45,11 @@ public class GameLogicUI : MonoBehaviour {
 			}
 
 		}else if (showEnemyHint) {
+			/*
 			if (LookEnemyHint.activeSelf == false) {
 				LookEnemyHint.SetActive (true);
 				StartCoroutine (hideUI (LookEnemyHint, 3.0f));
-			}
+			}*/
 		}
 	}
 

@@ -56,7 +56,9 @@ public class PuzzleInteract : MonoBehaviour {
 			if (puzzleConfiguration [i] == '\n') {
 				row++;
 				column = 0;
-			} else {
+			} else if (puzzleConfiguration [i] == '\r') {
+				// Do nothing
+			}else {
 				switch (puzzleConfiguration [i]) {
 				case '1':
 					instantiatePiece (Piece.STRAIGHT, column, row);

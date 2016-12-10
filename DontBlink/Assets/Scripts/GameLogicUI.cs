@@ -24,7 +24,11 @@ public class GameLogicUI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
-		Cursor.visible = false;
+		if (alive) {
+			Cursor.visible = false;
+		} else {
+			Cursor.visible = true;
+		}
 		bool showEnemyHint = false;
 		foreach (GameObject enemy in enemies) {
 			if (!enemy.GetComponent<CheckForObservers> ().IsObserved ()) {
@@ -60,12 +64,14 @@ public class GameLogicUI : MonoBehaviour {
 				StartCoroutine (hideUI (LookEnemyHint, 3.0f));
 			}*/
 		}
-		if (showPuzzleHint) {
-			if (PuzzleHintCanvas.activeSelf == false) {
-				PuzzleHintCanvas.SetActive (true);
+		if (PuzzleHintCanvas != null) {
+			if (showPuzzleHint) {
+				if (PuzzleHintCanvas.activeSelf == false) {
+					PuzzleHintCanvas.SetActive (true);
+				}
+			} else {
+				PuzzleHintCanvas.SetActive (false);
 			}
-		} else {
-			PuzzleHintCanvas.SetActive (false);
 		}
 	}
 
